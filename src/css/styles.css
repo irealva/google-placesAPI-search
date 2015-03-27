@@ -17,6 +17,40 @@ body{
   	padding-top:50px; /*padding for navbar*/
 }
 
+/*
+@media (min-width: 300px) {
+  .navbar-header {
+    float: left;
+  }
+  .navbar-text {
+    float: left;
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+  .navbar-form {
+    width: auto;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-right: 0;
+    margin-left: 0;
+    border: 0;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+}
+*/
+
+.navbar-header {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.navbar-form {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+
 .navbar-custom .icon-bar {
 	background-color:#fff;
 }
