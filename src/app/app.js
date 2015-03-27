@@ -83,13 +83,9 @@
                                 animation: google.maps.Animation.DROP
                             });
 
-                            //console.log(self.getHeaderString(place)) ;
-                            //console.log(self.getDescriptionString(place)) ;
-
                             self.placesResultsList.push({
                                 marker: marker,
-                                header: self.getHeaderString(place),
-                                description: self.getDescriptionString(place)
+                                html: self.getDescriptionString(place)
                             });
 
                             markers.push(marker);
@@ -114,24 +110,40 @@
         }.bind(this);
 
 
-        this.getHeaderString = function(place) {
-            var string = place.name ;
-            return string ;
+        this.getDescriptionString = function(place) {
+            var name = place.name;
+            var address = place.formatted_address;
+            var phone_number = place.formatted_phone_number;
+            var closed = place.permanently_closed;
+            var website = place.website;
+
+            var description = "<p>" + address + "<br>";
+
+            if (typeof phone_number !== 'undefined') {
+                description += phone_number + "<br>";
+
+                if (typeof closed !== 'undefined') {
+                    description += "Permanently closed: " + closed;
+                }
+            };
+
+            description += "</p>";
+
+            if (typeof website !== 'undefined') {
+                description += "<a href='" + website + "'>" + website + "</a>";
+            }
+
+            var html = {
+                header: name,
+                description: description,
+            }
+
+            return html;
+
         }.bind(this);
 
-        this.getDescriptionString = function(place) {
-            var address = place.formatted_address ;
-            var phone_number = place.formatted_phone_number ;
-            var closed = place.permanently_closed;
-            var website = place.website ;
-
-            var string = address + " = " + phone_number + " = " + closed + " = " + website ;
-
-            //console.log(place) ;
-            //console.log(string) ;
-            //return string;
-            return string ;
-
+        this.clickedHeader = function(clickedItem) {
+            google.maps.event.trigger(clickedItem.marker, 'click');
         }.bind(this);
 
         google.maps.event.addDomListener(window, 'load', this.initializeMap);
@@ -139,10 +151,4 @@
 
 
     ko.applyBindings(new ResultsViewModel());
-
-    //var resultsViewModel = new ResultsViewModel();
-    //var mapViewModel = new MapViewModel();
-    //ko.applyBindings(resultsViewModel, $('#playerContainer')[0]); //Apply our bindings to the player container
-    //ko.applyBindings(mapViewModel, $('#topVideos')[0]); //Apply our bindings to the top ten video section
-
 }());

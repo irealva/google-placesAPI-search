@@ -3,7 +3,7 @@
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<meta charset="utf-8">
-		<title>2 column Google maps, foursquare (outer scroll)</title>
+		<title>Google Places Search</title>
 		<meta name="generator" content="Bootply" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		
@@ -25,16 +25,6 @@
     <form class="navbar-form" data-bind="submit: searchLocation">
         <div class="form-group" style="display:inline;">
           <div class="input-group">
-            <div class="input-group-btn">
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-chevron-down"></span></button>
-              <ul class="dropdown-menu">
-                <li><a href="#">Category 1</a></li>
-                <li><a href="#">Category 2</a></li>
-                <li><a href="#">Category 3</a></li>
-                <li><a href="#">Category 4</a></li>
-                <li><a href="#">Category 5</a></li> 
-              </ul>
-            </div>
             <input type="text" class="form-control" data-bind="textInput: userSearch" placeholder="Search for a place">
             <span class="input-group-addon" data-bind="click: searchLocation"><span class="glyphicon glyphicon-search"></span> </span>
           </div>
@@ -44,63 +34,31 @@
     </div>
 </div>
 
-<div class="hidden-xs hidden-sm col-md-4" id="map-canvas"></div>
+<div class="hidden-xs hidden-sm col-md-6" id="map-canvas"></div>
 <div class="container-fluid" id="main">
   <div class="row">
-  	<div class="col-xs-12 col-md-8" id="left">
+  	<div class="col-xs-12 col-md-6" id="left">
     
       <h3>Google search results:</h3>
       
       <!-- item list -->
-      <div class="panel panel-default">
-        <div class="panel-heading"><a href="">Item heading</a></div>
+      <div data-bind="foreach: placesResultsList">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <a class="hidden-xs hidden-sm" href="" data-bind="text: html.header, click: $parent.clickedHeader"></a> 
+              <p class="hidden-md hidden-lg" data-bind="text: html.header"></p>
+            </div>
+          </div>
+          <div data-bind="html: html.description"></div>
+          <hr>
       </div>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
-        Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
-        dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
-        Aliquam in felis sit amet augue.</p>
-      
-      <hr>
-      
-      <div class="panel panel-default">
-        <div class="panel-heading"><a href="">Item heading</a></div>
-      </div>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
-        Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
-        dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
-        Aliquam in felis sit amet augue.</p>
-      
-      <hr>
-      
-      <div class="panel panel-default">
-        <div class="panel-heading"><a href="">Item heading</a></div>
-      </div>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
-        Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
-        dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
-        Aliquam in felis sit amet augue.</p>
-      
-      <hr>
-      
-      <div class="panel panel-default">
-        <div class="panel-heading"><a href="">Item heading</a></div>
-      </div>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. 
-        Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis 
-        dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. 
-        Aliquam in felis sit amet augue.</p>
-      
-      <hr>     
+
     </div>
-    <div class="hidden-xs hidden-sm col-md-4"><!--map-canvas will be postioned here--></div>
+    <div class="hidden-xs hidden-sm col-md-6"><!--map-canvas will be postioned here--></div>
     
   </div>
 </div>
 <!-- end template -->
-
-  <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoEAoTkZOsxERAEtnG7fkut8cmzLIRLcs&libraries=places"></script>-->
-
-  <!--<script src="http://maps.googleapis.com/maps/api/js?sensor=false&extension=.js&output=embed"></script>-->
 
   <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
 
@@ -110,8 +68,6 @@
     <script src="bower_modules/knockout/dist/knockout.js"></script>
     <script src="app/app.js"></script>
   <!-- endbuild -->
-
-	<!-- script references -->
 	
 	</body>
 </html>
