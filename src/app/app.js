@@ -6,17 +6,17 @@
     var ResultsViewModel = function() {
         var self = this;
         this.map;
-        this.infowindow ;
+        this.infowindow;
         this.service;
 
         this.userSearch = ko.observable(); // Input by user in the search bar
-        this.placesResultsList = ko.observableArray([]); // {marker,html}
+        this.placesResultsList = ko.observableArray([]); // {marker, header, description}
         var markers = [];
 
         //Initial settings for example
-        this.initialRequest = "Coffee near San Francisco" ;
-        this.initialLat = 37.7577 ;
-        this.initialLng = -122.4376 ;
+        this.initialRequest = "Coffee near San Francisco";
+        this.initialLat = 37.7577;
+        this.initialLng = -122.4376;
 
         /**
          * Timeout function in case Google Maps doesn't load
@@ -36,8 +36,8 @@
             self.infowindow = new google.maps.InfoWindow();
 
             //Initial example request
-            self.userSearch(self.initialRequest) ;
-            self.searchLocation() ;
+            self.userSearch(self.initialRequest);
+            self.searchLocation();
             //
 
         }.bind(this);
@@ -56,8 +56,8 @@
                 markers[i].setMap(null);
             }
 
-            markers = [] ;
-
+            markers = [];
+            self.placesResultsList.removeAll();
         }.bind(this);
 
         this.callback = function(results, status) {
@@ -83,12 +83,21 @@
                                 animation: google.maps.Animation.DROP
                             });
 
+                            //console.log(self.getHeaderString(place)) ;
+                            //console.log(self.getDescriptionString(place)) ;
+
+                            self.placesResultsList.push({
+                                marker: marker,
+                                header: self.getHeaderString(place),
+                                description: self.getDescriptionString(place)
+                            });
+
                             markers.push(marker);
 
                             bounds.extend(marker.position);
 
-                            if(markers.length == results.length) {
-                                console.log("complete") ;
+                            if (markers.length == results.length) {
+                                console.log("complete");
                                 self.map.fitBounds(bounds);
                             }
 
@@ -102,6 +111,27 @@
                     console.log(results[i].place_id);
                 }
             }
+        }.bind(this);
+
+
+        this.getHeaderString = function(place) {
+            var string = place.name ;
+            return string ;
+        }.bind(this);
+
+        this.getDescriptionString = function(place) {
+            var address = place.formatted_address ;
+            var phone_number = place.formatted_phone_number ;
+            var closed = place.permanently_closed;
+            var website = place.website ;
+
+            var string = address + " = " + phone_number + " = " + closed + " = " + website ;
+
+            //console.log(place) ;
+            //console.log(string) ;
+            //return string;
+            return string ;
+
         }.bind(this);
 
         google.maps.event.addDomListener(window, 'load', this.initializeMap);
