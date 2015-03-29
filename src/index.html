@@ -1,73 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-		<meta charset="utf-8">
-		<title>Google Places Search</title>
-		<meta name="generator" content="Bootply" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		
-		<!--[if lt IE 9]>
-			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-		<![endif]-->
 
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Google Places Search</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!--[if lt IE 9]>
+      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
     <!-- Styles -->
     <!-- build:css -->
-    <link href="bower_modules/components-bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-		<link href="css/styles.css" rel="stylesheet">
+    <link href="bower_modules/components-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet">
     <!-- endbuild -->
-	</head>
-	<body>
-<!-- begin template -->
-<div class="navbar navbar-custom navbar-fixed-top">
- <div class="navbar-header">
-    <p class="navbar-text hidden-xs">Google Places Search</p>
-    <form class="navbar-form" data-bind="submit: searchLocation">
-        <div class="form-group" style="display:inline;">
-          <div class="input-group">
-            <input type="text" class="form-control" data-bind="textInput: userSearch" placeholder="Search for a place">
-            <span class="input-group-addon" data-bind="click: searchLocation"><span class="glyphicon glyphicon-search"></span> </span>
-          </div>
+</head>
+
+<body>
+    <div class="navbar navbar-custom navbar-fixed-top">
+        <div class="navbar-header">
+            <p class="navbar-text hidden-xs">Google Places Search</p>
+            <form class="navbar-form" data-bind="submit: searchLocation">
+                <div class="form-group" style="display:inline;">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="search" data-bind="textInput: userSearch, attr: {placeholder: placeholder}">
+                        <span class="input-group-addon" data-bind="click: searchLocation"><span class="glyphicon glyphicon-search"></span> </span>
+                    </div>
+                </div>
+            </form>
         </div>
-      </form>
-
     </div>
-</div>
-
-<div class="hidden-xs hidden-sm col-md-6" id="map-canvas"></div>
-<div class="container-fluid" id="main">
-  <div class="row">
-  	<div class="col-xs-12 col-md-6" id="left">
-    
-      <h3>Google search results:</h3>
-      
-      <!-- item list -->
-      <div data-bind="foreach: placesResultsList">
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <a class="hidden-xs hidden-sm" href="" data-bind="text: html.header, click: $parent.clickedHeader"></a> 
-              <p class="hidden-md hidden-lg" data-bind="text: html.header"></p>
+    <div class="hidden-xs hidden-sm col-md-6" id="map-canvas"></div>
+    <div class="container-fluid" id="main">
+        <div class="row">
+            <div class="col-xs-12 col-md-6" id="left">
+                <h3>Search results:</h3>
+                <br>
+                <!-- item list -->
+                <div data-bind="foreach: placesResultsList">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a class="hidden-xs hidden-sm" href="" data-bind="text: html.header, click: $parent.clickedHeader"></a>
+                            <p class="hidden-md hidden-lg" data-bind="text: html.header"></p>
+                        </div>
+                    </div>
+                    <div data-bind="html: html.description"></div>
+                    <hr>
+                </div>
             </div>
-          </div>
-          <div data-bind="html: html.description"></div>
-          <hr>
-      </div>
-
+            <div class="hidden-xs hidden-sm col-md-6">
+                <!--map-canvas will go here-->
+            </div>
+        </div>
     </div>
-    <div class="hidden-xs hidden-sm col-md-6"><!--map-canvas will be postioned here--></div>
-    
-  </div>
-</div>
-<!-- end template -->
 
-  <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
-
-  <!-- build:js -->
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+    <!-- build:js -->
     <script src="bower_modules/jquery/dist/jquery.min.js"></script>
     <script src="bower_modules/components-bootstrap/js/bootstrap.min.js"></script>
     <script src="bower_modules/knockout/dist/knockout.js"></script>
     <script src="app/app.js"></script>
-  <!-- endbuild -->
-	
-	</body>
+    <!-- endbuild -->
+</body>
+
 </html>
